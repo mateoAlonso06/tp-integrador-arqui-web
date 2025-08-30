@@ -6,10 +6,12 @@ import com.integrador.entity.DBType;
 import com.integrador.factory.concret.MySQLDAOFactory;
 import com.integrador.factory.concret.PostgresSQLDAOFactory;
 
-public abstract class AbstractFactory {
-    public abstract ClienteDAO getClienteDao();
+import java.sql.Connection;
 
-    public abstract ProductoDAO getProductoDao();
+public abstract class AbstractFactory {
+    public abstract ClienteDAO getClienteDao(Connection conn);
+
+    public abstract ProductoDAO getProductoDao(Connection conn);
 
     public static AbstractFactory getFactory(DBType type) {
         return switch (type) {

@@ -4,6 +4,8 @@ import com.integrador.dao.ClienteDAO;
 import com.integrador.dao.ProductoDAO;
 import com.integrador.factory.AbstractFactory;
 
+import java.sql.Connection;
+
 public class PostgresSQLDAOFactory extends AbstractFactory {
     private static PostgresSQLDAOFactory INSTANCE;
 
@@ -23,12 +25,12 @@ public class PostgresSQLDAOFactory extends AbstractFactory {
     }
 
     @Override
-    public ClienteDAO getClienteDao() {
+    public ClienteDAO getClienteDao(Connection conn) {
         return null;
     }
 
     @Override
-    public ProductoDAO getProductoDao() {
+    public ProductoDAO getProductoDao(Connection conn) {
         return null;
     }
 }

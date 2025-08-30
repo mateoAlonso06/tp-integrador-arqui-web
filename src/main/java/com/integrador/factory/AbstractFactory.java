@@ -1,19 +1,22 @@
 package com.integrador.factory;
 
-public class AbstractFactory {
-//    public abstract ClienteDao getClienteDao();
-//
-//    public abstract FacturaDao getFacturaDao();
-//
-//    public abstract FacturaProductoDao getFacturaProductoDao();
-//
-//    public abstract ProductoDao getProductoDao();
-//
-//    public static AbstractFactory getFactory(String factory) {
-//       return switch (factory) {
-//            case "MySQL" -> new MySQLDAOFactory();
-//            case "PostgreSQL" ->  new PostgreSQLDAOFactory();
-//            default -> null;
-//        };
-//    }
+import com.integrador.dao.ClienteDAO;
+import com.integrador.dao.ProductoDAO;
+import com.integrador.entity.DBType;
+import com.integrador.factory.concret.MySQLDAOFactory;
+import com.integrador.factory.concret.PostgresSQLDAOFactory;
+
+public abstract class AbstractFactory {
+    public abstract ClienteDAO getClienteDao();
+
+    public abstract ProductoDAO getProductoDao();
+
+    public static AbstractFactory getFactory(DBType type) {
+        return switch (type) {
+            case MYSQL -> MySQLDAOFactory.getInstance();
+            case POSTGRESQL -> PostgresSQLDAOFactory.getInstance();
+            // case DERBY -> new DerbyDAOFactory();
+            // case MONGODB -> new MongoDBDAOFactory();
+        };
+    }
 }

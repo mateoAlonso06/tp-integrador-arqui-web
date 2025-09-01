@@ -9,6 +9,11 @@ import java.sql.Connection;
 public class PostgresSQLDAOFactory extends AbstractFactory {
     private static PostgresSQLDAOFactory INSTANCE;
 
+    public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    public static final String uri = "jdbc:mysql://localhost:3306/integrador";
+
+    private static Connection conn;
+
     private PostgresSQLDAOFactory() {
         // Private constructor to prevent instantiation
     }
@@ -25,12 +30,12 @@ public class PostgresSQLDAOFactory extends AbstractFactory {
     }
 
     @Override
-    public ClienteDAO getClienteDao(Connection conn) {
+    public ClienteDAO getClienteDao() {
         return null;
     }
 
     @Override
-    public ProductoDAO getProductoDao(Connection conn) {
+    public ProductoDAO getProductoDao() {
         return null;
     }
 }

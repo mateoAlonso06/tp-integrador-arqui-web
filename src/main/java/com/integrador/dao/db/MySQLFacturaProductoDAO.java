@@ -45,6 +45,6 @@ public class MySQLFacturaProductoDAO implements DAO {
 
     @Override
     public List getAll() {
-        return List.of();
+        return null;
     }
 }

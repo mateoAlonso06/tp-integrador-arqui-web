@@ -20,11 +20,15 @@ public class MySQLClienteDAO implements ClienteDAO {
     @Override
     public List<Cliente> getClientesOrderByFacturas() {
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT c.idCliente, c.nombre, c.email, SUM(f.total) AS totalFacturado " +
+        String sql = "SELECT c.id, c.nombre, c.email, " +
+                "COALESCE(SUM(fp.cantidad * p.valor), 0) AS total_facturado " +
                 "FROM clientes c " +
-                "JOIN facturas f ON c.idCliente = f.idCliente " +
-                "GROUP BY c.idCliente, c.nombre, c.email " +
-                "ORDER BY totalFacturado DESC";
+                "LEFT JOIN facturas f ON f.cliente_id = c.id " +
+                "LEFT JOIN facturas_producto fp ON fp.factura_id = f.id " +
+                "LEFT JOIN productos p ON p.id = fp.producto_id " +
+                "GROUP BY c.id, c.nombre, c.email " +
+                "ORDER BY total_facturado DESC, c.nombre";
+
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
@@ -156,7 +160,7 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     private Cliente mapResultSetToCliente(ResultSet rs) throws SQLException {
         Cliente cliente = new Cliente();
-        cliente.setIdCliente(rs.getInt("idCliente"));
+        cliente.setIdCliente(rs.getInt("id"));
         cliente.setNombre(rs.getString("nombre"));
         cliente.setEmail(rs.getString("email"));
         return cliente;

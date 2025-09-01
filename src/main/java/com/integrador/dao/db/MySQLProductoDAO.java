@@ -17,11 +17,11 @@ public class MySQLProductoDAO implements ProductoDAO {
 
     @Override
     public Producto getMostExpensiveProduct() {
-        String query = "SELECT p.idProducto, p.nombre, p.valor, " +
+        String query = "SELECT p.id, p.nombre, p.valor, " +
                 "COALESCE(SUM(fp.cantidad * p.valor), 0) AS recaudacion " +
-                "FROM Producto p " +
-                "LEFT JOIN Factura_Producto fp ON p.idProducto = fp.idProducto " +
-                "GROUP BY p.idProducto, p.nombre, p.valor " +
+                "FROM productos p " +
+                "LEFT JOIN facturas_producto fp ON p.id = fp.producto_id " +
+                "GROUP BY p.id, p.nombre, p.valor " +
                 "ORDER BY recaudacion DESC " +
                 "LIMIT 1";
         PreparedStatement ps = null;
@@ -32,7 +32,7 @@ public class MySQLProductoDAO implements ProductoDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 producto = new Producto();
-                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setIdProducto(rs.getInt("id"));
                 producto.setNombre(rs.getString("nombre"));
                 producto.setValor(rs.getFloat("valor"));
             }

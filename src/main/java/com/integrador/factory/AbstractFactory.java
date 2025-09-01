@@ -6,19 +6,26 @@ import com.integrador.entity.DBType;
 import com.integrador.factory.concret.MySQLDAOFactory;
 import com.integrador.factory.concret.PostgresSQLDAOFactory;
 
-import java.sql.Connection;
-
 public abstract class AbstractFactory {
-    public abstract ClienteDAO getClienteDao(Connection conn);
+    public abstract ClienteDAO getClienteDao();
 
-    public abstract ProductoDAO getProductoDao(Connection conn);
+    public abstract ProductoDAO getProductoDao();
 
     public static AbstractFactory getFactory(DBType type) {
-        return switch (type) {
-            case MYSQL -> MySQLDAOFactory.getInstance();
-            case POSTGRESQL -> PostgresSQLDAOFactory.getInstance();
+        AbstractFactory resultado = null;
+        switch (type) {
+            case MYSQL:
+                resultado = MySQLDAOFactory.getInstance();
+                break;
+            case POSTGRESQL:
+                resultado = PostgresSQLDAOFactory.getInstance();
+                break;
             // case DERBY -> new DerbyDAOFactory();
             // case MONGODB -> new MongoDBDAOFactory();
-        };
+            default:
+                resultado = null;
+                break;
+        }
+        return resultado;
     }
 }

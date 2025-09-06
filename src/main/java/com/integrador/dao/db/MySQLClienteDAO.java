@@ -57,7 +57,7 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     @Override
     public void insert(Cliente entity) {
-        String query = "INSERT INTO clientes (nombre, apellido) VALUES (?, ?)";
+        String query = "INSERT INTO clientes (nombre, email) VALUES (?, ?)";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query);
@@ -79,7 +79,7 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     @Override
     public void delete(Integer id) {
-        String query = "DELETE FROM clientes WHERE idCliente = ?";
+        String query = "DELETE FROM clientes WHERE id = ?";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(query);
@@ -100,7 +100,7 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     @Override
     public Cliente getById(Integer id) {
-        String query = "SELECT * FROM clientes WHERE idCliente = ?";
+        String query = "SELECT * FROM clientes WHERE id = ?";
         PreparedStatement ps = null;
         ResultSet rs = null;
         Cliente cliente = null;
@@ -160,7 +160,7 @@ public class MySQLClienteDAO implements ClienteDAO {
 
     private Cliente mapResultSetToCliente(ResultSet rs) throws SQLException {
         Cliente cliente = new Cliente();
-        cliente.setIdCliente(rs.getInt("id"));
+        cliente.setIdCliente(Integer.valueOf(rs.getInt("id")));
         cliente.setNombre(rs.getString("nombre"));
         cliente.setEmail(rs.getString("email"));
         return cliente;

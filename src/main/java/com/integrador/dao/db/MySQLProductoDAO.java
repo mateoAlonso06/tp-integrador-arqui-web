@@ -32,7 +32,7 @@ public class MySQLProductoDAO implements ProductoDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 producto = new Producto();
-                producto.setIdProducto(rs.getInt("id"));
+                producto.setIdProducto(Integer.valueOf(rs.getInt("id")));//me obliga a usar un wrap y parsear el id
                 producto.setNombre(rs.getString("nombre"));
                 producto.setValor(rs.getFloat("valor"));
             }

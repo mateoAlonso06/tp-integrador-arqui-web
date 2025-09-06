@@ -17,7 +17,7 @@ public class MySQLFacturaDAO implements FacturaDAO {
 
     @Override
     public void insert(Factura entity) {
-        String query = "INSERT INTO factura (idCliente, idFactura) VALUES (?, ?)";
+        String query = "INSERT INTO facturas (id, cliente_id) VALUES (?, ?)";
         // Implement JDBC code to execute the insert statement
         PreparedStatement ps = null;
         try {

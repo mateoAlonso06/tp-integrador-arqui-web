@@ -10,29 +10,32 @@ import com.integrador.utils.HelperMySQL;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        HelperMySQL dbMySQL = new HelperMySQL();
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/integrador";
+        String username = "root";
+        String password = "";
+
+        HelperMySQL dbMySQL = new HelperMySQL(driver, url, username, password);
 
 //        dbMySQL.dropTables();
 //        dbMySQL.createTables();
 //        dbMySQL.populateDB();
 //        dbMySQL.closeConnection();
 
+        // 1. Elegir la fabrica
         AbstractFactory chosenFactory = AbstractFactory.getFactory(DBType.MYSQL);
-        System.out.println();
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("////////////////////////////////////////////");
-        System.out.println();
 
+        // 2. Obtengo el dao
         ClienteDAO clienteDAO = chosenFactory.getClienteDao();
         ProductoDAO productoDAO = chosenFactory.getProductoDao();
 
+        // Consigna nº3
         System.out.println("Producto que mas recaudo");
         Producto productoMasRecaudo = productoDAO.getMostExpensiveProduct();
 
         System.out.println(productoMasRecaudo);
 
-        System.out.println("nahuel kukita");
-
+        // Consigna nº4
         System.out.println("Listado de clientes ordenado por facturas");
         for (Cliente cliente : clienteDAO.getClientesOrderByFacturas()) {
             System.out.println(cliente);

@@ -17,13 +17,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+// TODO: Utilizar metodo de cada entidad (insert) o hacerlo todo aca?
 public class HelperMySQL {
     private Connection conn = null;
 
-    public HelperMySQL() {
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String uri = "jdbc:mysql://localhost:3306/integrador";
-
+    public HelperMySQL(String driver, String uri, String user, String password) {
         try {
             Class.forName(driver).getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -31,22 +29,11 @@ public class HelperMySQL {
             e.printStackTrace();
             System.exit(1);
         }
-
         try {
-            conn = DriverManager.getConnection(uri, "root", "");
+            conn = DriverManager.getConnection(uri, user, password);
             conn.setAutoCommit(false);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void closeConnection() {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -67,7 +54,6 @@ public class HelperMySQL {
         this.conn.prepareStatement(dropfacturaProducto).execute();
         this.conn.commit();
     }
-
 
     public void createTables() throws SQLException {
         String createCliente = "CREATE TABLE IF NOT EXISTS clientes ("
@@ -201,6 +187,8 @@ public class HelperMySQL {
                 }
             }
             System.out.println("Relaciones factura-producto insertadas");
+
+            // TODO: Preguntar como manejar la transaccion
             conn.commit();
             conn.close();
         } catch (SQLException e) {

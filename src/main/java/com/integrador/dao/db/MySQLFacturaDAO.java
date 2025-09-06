@@ -38,9 +38,7 @@ public class MySQLFacturaDAO implements FacturaDAO {
     }
 
     @Override
-    public void delete(Integer id) {
-
-    }
+    public void delete(Integer id) {}
 
     @Override
     public Factura getById(Integer id) {

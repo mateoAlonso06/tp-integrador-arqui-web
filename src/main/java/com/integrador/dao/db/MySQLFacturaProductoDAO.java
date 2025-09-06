@@ -14,7 +14,6 @@ public class MySQLFacturaProductoDAO implements DAO {
         this.conn = conn;
     }
 
-
     @Override
     public void insert(Object entity) {
         String query = "INSERT INTO facturas_producto (factura_id, producto_id, cantidad) VALUES (?, ?, ?)";

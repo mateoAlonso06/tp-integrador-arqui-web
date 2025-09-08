@@ -17,7 +17,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-// TODO: Utilizar metodo de cada entidad (insert) o hacerlo todo aca?
 public class HelperMySQL {
     private Connection conn = null;
 
@@ -38,20 +37,20 @@ public class HelperMySQL {
     }
 
     public void dropTables() throws SQLException {
-        String dropCliente = "DROP TABLE IF EXISTS clientes";
-        this.conn.prepareStatement(dropCliente).execute();
-        this.conn.commit();
-
-        String dropProducto = "DROP TABLE IF EXISTS productos";
-        this.conn.prepareStatement(dropProducto).execute();
+        String dropfacturaProducto = "DROP TABLE IF EXISTS facturas_producto";
+        this.conn.prepareStatement(dropfacturaProducto).execute();
         this.conn.commit();
 
         String dropFactura = "DROP TABLE IF EXISTS facturas";
         this.conn.prepareStatement(dropFactura).execute();
         this.conn.commit();
 
-        String dropfacturaProducto = "DROP TABLE IF EXISTS facturas_producto";
-        this.conn.prepareStatement(dropfacturaProducto).execute();
+        String dropProducto = "DROP TABLE IF EXISTS productos";
+        this.conn.prepareStatement(dropProducto).execute();
+        this.conn.commit();
+
+        String dropCliente = "DROP TABLE IF EXISTS clientes";
+        this.conn.prepareStatement(dropCliente).execute();
         this.conn.commit();
     }
 
@@ -123,6 +122,7 @@ public class HelperMySQL {
                     }
                 }
             }
+            conn.commit();
             System.out.println("Clientes insertados");
 
             // 2) Productos
@@ -144,6 +144,7 @@ public class HelperMySQL {
                     }
                 }
             }
+            conn.commit();
             System.out.println("Productos insertados");
 
             // 3) Facturas
@@ -164,6 +165,7 @@ public class HelperMySQL {
                     }
                 }
             }
+            conn.commit();
             System.out.println("Facturas insertadas");
 
             // 4) Factura_Producto (relación)
@@ -186,10 +188,8 @@ public class HelperMySQL {
                     }
                 }
             }
-            System.out.println("Relaciones factura-producto insertadas");
-
-            // TODO: Preguntar como manejar la transaccion
             conn.commit();
+            System.out.println("Relaciones factura-producto insertadas");
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace(); // como pediste: suficiente para el práctico

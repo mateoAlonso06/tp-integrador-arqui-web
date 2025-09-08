@@ -11,6 +11,8 @@ public abstract class AbstractFactory {
 
     public abstract ProductoDAO getProductoDao();
 
+    public abstract void closeConnection();
+
     public static AbstractFactory getFactory(DBType type) {
         AbstractFactory resultado = null;
         switch (type) {

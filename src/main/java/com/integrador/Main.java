@@ -10,6 +10,7 @@ import com.integrador.utils.HelperMySQL;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        // Se utiliza unicamente para el helper
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/integrador";
         String username = "root";
@@ -17,15 +18,14 @@ public class Main {
 
         HelperMySQL dbMySQL = new HelperMySQL(driver, url, username, password);
 
-//        dbMySQL.dropTables();
-//        dbMySQL.createTables();
-//        dbMySQL.populateDB();
-//        dbMySQL.closeConnection();
+        dbMySQL.dropTables();
+        dbMySQL.createTables();
+        dbMySQL.populateDB(); // cierra la conexion dentro de la misma
 
-        // 1. Elegir la fabrica
+        // Elegir la fabrica
         AbstractFactory chosenFactory = AbstractFactory.getFactory(DBType.MYSQL);
 
-        // 2. Obtengo el dao
+        // Obtengo el dao
         ClienteDAO clienteDAO = chosenFactory.getClienteDao();
         ProductoDAO productoDAO = chosenFactory.getProductoDao();
 
@@ -33,12 +33,18 @@ public class Main {
         System.out.println("Producto que mas recaudo");
         Producto productoMasRecaudo = productoDAO.getMostExpensiveProduct();
 
+        System.out.println("--------------------------------------");
+
         System.out.println(productoMasRecaudo);
+
+        System.out.println("--------------------------------------");
 
         // Consigna nº4
         System.out.println("Listado de clientes ordenado por facturas");
         for (Cliente cliente : clienteDAO.getClientesOrderByFacturas()) {
             System.out.println(cliente);
         }
+
+        chosenFactory.closeConnection();
     }
 }

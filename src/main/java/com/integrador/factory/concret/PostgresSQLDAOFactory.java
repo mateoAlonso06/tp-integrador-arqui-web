@@ -38,4 +38,7 @@ public class PostgresSQLDAOFactory extends AbstractFactory {
     public ProductoDAO getProductoDao() {
         return null;
     }
+
+    @Override
+    public void closeConnection() { }
 }

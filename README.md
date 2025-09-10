@@ -45,7 +45,7 @@ This academic project demonstrates a business management system developed in Jav
   - Execute business queries and display results in the console.
 - Follow on-screen prompts for any additional actions.
 
-## Testing Instructions
+## Testing Instructions (Currently does not include tests)
 - **Unit Tests:** Run with Maven:
   ```
   mvn test
@@ -53,7 +53,7 @@ This academic project demonstrates a business management system developed in Jav
 - **Manual Testing:** Verify database state and console outputs after running the main application.
 
 ## Author Information
-- **Author:** Mateo Alonso
+- **Authors:** Mateo Alonso, Nahuel Lamorte, Martin Dentaro, Rocío Anabel Wesenack, Gonzalo Sola
 - **Institution:** Universidad Nacional del Centro de la Provincia de Buenos Aires (UNICEN)
 - **Course:** Integrative Project (Trabajo Integrador)
 
